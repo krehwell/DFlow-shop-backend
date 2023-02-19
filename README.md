@@ -2,7 +2,7 @@
 
 For DFlow technical challenge
 
-- Walkthorugh link:
+- Walkthorugh link: https://youtu.be/CmBpSTa2UpE
 
 _np: in this repo, I pushed `.env` (includes db URI, etc) which normally should not, but for the sake of simplicity I shared it anyway_
 
