@@ -19,29 +19,29 @@ class CartController implements Controller {
     }
 
     private initializeRoutes() {
-        // this.router.get(this.path, this.getAllItems);
-        // this.router.get(`${this.path}/:id`, this.getItemById);
         this.router
-            .patch(`${this.path}/:id`, authMiddleware, validationMiddleware(CreateCartDto, true), this.modifyCart)
-            // .delete(`${this.path}/:id`, this.deleteItem)
-            .post(this.path, authMiddleware, validationMiddleware(CreateCartDto), this.createCart);
+            .all(`${this.path}/*`, authMiddleware)
+            .get(this.path, this.getAllCarts)
+            .get(`${this.path}/:id`, this.getChartById)
+            .patch(`${this.path}/:id`, validationMiddleware(CreateCartDto, true), this.modifyCart)
+            .post(this.path, validationMiddleware(CreateCartDto), this.createCart)
+            .delete(`${this.path}/:id`, this.deleteCart);
     }
 
-    // private getAllItems = async (request: Request, response: Response) => {
-    //     const items = await this.cart.find().populate("author", "-password");
-    //     response.send(items);
-    // };
-    //
-    // private getItemById = async (request: Request, response: Response, next: NextFunction) => {
-    //     const id = request.params.id;
-    //     const item = await this.cart.findById(id);
-    //     if (item) {
-    //         response.send(item);
-    //     } else {
-    //         next(new ItemNotFoundException(id));
-    //     }
-    // };
-    //
+    private getAllCarts = async (request: RequestWithUser, response: Response) => {
+        const carts = await this.cart.find({ user: request.user._id }).populate("user items", "-password");
+        response.send(carts);
+    };
+
+    private getChartById = async (request: RequestWithUser, response: Response, next: NextFunction) => {
+        const id = request.params.id;
+        const item = await this.cart.findOne({ id, user: request.user._id }).populate("user items");
+        if (item) {
+            response.send(item);
+        } else {
+            next(new NotFoundException("Cart", id));
+        }
+    };
 
     private modifyCart = async (request: RequestWithUser, response: Response, next: NextFunction) => {
         const id = request.params.id;
@@ -68,15 +68,15 @@ class CartController implements Controller {
         }
     };
 
-    // private deleteItem = async (request: Request, response: Response, next: NextFunction) => {
-    //     const id = request.params.id;
-    //     const successResponse = await this.cart.findByIdAndDelete(id);
-    //     if (successResponse) {
-    //         response.send(200);
-    //     } else {
-    //         next(new ItemNotFoundException(id));
-    //     }
-    // };
+    private deleteCart = async (request: RequestWithUser, response: Response, next: NextFunction) => {
+        const id = request.params.id;
+        const successResponse = await this.cart.findOneAndDelete({ id, user: request.user._id });
+        if (successResponse) {
+            response.send(200);
+        } else {
+            next(new NotFoundException("Cart", id));
+        }
+    };
 }
 
 export default CartController;
