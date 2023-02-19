@@ -6,6 +6,17 @@ For DFlow technical challenge
 
 _np: in this repo, I pushed `.env` (includes db URI, etc) which normally should not, but for the sake of simplicity I shared it anyway_
 
+## Installation
+```bash
+# install packages
+yarn
+
+# run the server
+yarn dev
+```
+
+Test API using Postman API script the you can import inside `./misc/DFlow-shop.postman_collection.json`
+
 ## Project Structure
 ```bash
 ├── misc
