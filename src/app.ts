@@ -44,7 +44,8 @@ class App {
 
     private connectToTheDatabase() {
         const { MONGO_USER, MONGO_PASSWORD, MONGO_PATH } = process.env;
-        mongoose.connect(`mongodb://${MONGO_USER}:${MONGO_PASSWORD}${MONGO_PATH}`);
+        mongoose.set("strictQuery", false);
+        mongoose.connect(`mongodb+srv://${MONGO_USER}:${MONGO_PASSWORD}${MONGO_PATH}`);
     }
 }
 

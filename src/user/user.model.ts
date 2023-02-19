@@ -1,18 +1,9 @@
 import * as mongoose from "mongoose";
 import User from "./user.interface";
 
-const addressSchema = new mongoose.Schema({
-    city: String,
-    country: String,
-    street: String,
-});
-
 const userSchema = new mongoose.Schema(
     {
-        address: addressSchema,
-        email: String,
-        firstName: String,
-        lastName: String,
+        username: String,
         password: {
             type: String,
             get: (): undefined => undefined,
@@ -26,12 +17,8 @@ const userSchema = new mongoose.Schema(
     }
 );
 
-userSchema.virtual("fullName").get(function () {
-    return `${this.firstName} ${this.lastName}`;
-});
-
-userSchema.virtual("posts", {
-    ref: "Post",
+userSchema.virtual("items", {
+    ref: "Item",
     localField: "_id",
     foreignField: "author",
 });

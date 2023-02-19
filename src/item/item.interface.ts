@@ -1,7 +1,7 @@
-interface Post {
+interface Item {
     authorId: string;
     content: string;
     title: string;
 }
 
-export default Post;
+export default Item;
