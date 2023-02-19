@@ -20,10 +20,7 @@ class UserController implements Controller {
     private getUserById = async (request: Request, response: Response, next: NextFunction) => {
         const id = request.params.id;
         const userQuery = this.user.findById(id);
-        if (request.query.withItems === "true") {
-            userQuery.populate("items").exec();
-        }
-        const user = await userQuery;
+        const user = await userQuery.exec();
         if (user) {
             response.send(user);
         } else {

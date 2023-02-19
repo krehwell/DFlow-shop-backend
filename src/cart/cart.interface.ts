@@ -1,7 +1,7 @@
 interface Cart {
     id: string;
-    owner: string;
-    items: string[];
+    user: string;
+    items: { item: string[]; total: number }[];
 }
 
 export default Cart;

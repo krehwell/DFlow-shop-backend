@@ -7,10 +7,15 @@ const cartSchema = new mongoose.Schema({
         ref: "User",
         type: mongoose.Schema.Types.ObjectId,
     },
-    items: {
-        ref: "Item",
-        type: [mongoose.Schema.Types.ObjectId],
-    },
+    items: [
+        {
+            item: {
+                ref: "Item",
+                type: mongoose.Schema.Types.ObjectId,
+            },
+            total: Number,
+        },
+    ],
 });
 
 const cartModel = mongoose.model<Cart & mongoose.Document>("Cart", cartSchema);
