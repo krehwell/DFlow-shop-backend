@@ -1,31 +1,61 @@
-<p align="center">
-  <a href="https://expressjs.com/" target="blank"><img src="http://wanago.io/express.png" width="320" alt="Express Logo" /></a>
-</p>
+# DFlow Shop API
 
-## Description
+For DFlow technical challenge
 
-This repository is a part of the [Express Typescript tutorial](https://wanago.io/courses/typescript-express-tutorial/).
+- Walkthorugh link:
 
-Each part of the course has its own branch, called for example [_part-1_](https://github.com/mwanago/express-typescript/tree/part-1).
+_np: in this repo, I pushed `.env` (includes db URI, etc) which normally should not, but for the sake of simplicity I shared it anyway_
 
-The the [_master_](https://github.com/mwanago/express-typescript) branch represents the version with **MongoDB**.
-
-The [_postgres_](https://github.com/mwanago/express-typescript/tree/postgres) branch contains the version with **PostgreSQL**.
-
-## Installation
-
+## Project Structure
 ```bash
-npm install
-```
-
-## Running
-
-```bash
-npm run dev
-```
-
-## Testing
-
-```bash
-npm run test
+├── misc
+│   └── DFlow-shop.postman_collection.json                       # postman API testing template
+├── package.json
+├── README.md
+├── src
+│   ├── app.ts                                                   # main
+│   ├── authentication                                           # auth routes handler
+│   │   ├── authentication.controller.ts
+│   │   ├── authentication.service.ts
+│   │   └── logIn.dto.ts
+│   ├── cart                                                     # cart routes handler
+│   │   ├── cart.controller.ts
+│   │   ├── cart.dto.ts
+│   │   ├── cart.interface.ts
+│   │   └── cart.model.ts
+│   ├── exceptions                                               # error wrappers
+│   │   ├── AuthenticationTokenMissingException.ts
+│   │   ├── HttpException.ts
+│   │   ├── NotAuthorizedException.ts
+│   │   ├── NotFoundException.ts
+│   │   ├── UserNotFoundException.ts
+│   │   ├── UserWithThatUsernameAlreadyExistsException.ts
+│   │   ├── WrongAuthenticationTokenException.ts
+│   │   └── WrongCredentialsException.ts
+│   ├── interfaces                                                # typescript types
+│   │   ├── controller.interface.ts
+│   │   ├── dataStoredInToken.ts
+│   │   ├── requestWithUser.interface.ts
+│   │   └── tokenData.interface.ts
+│   ├── item                                                      # shop product (item) routes handler
+│   │   ├── item.controller.ts
+│   │   ├── item.dto.ts
+│   │   ├── item.interface.ts
+│   │   └── item.model.ts
+│   ├── middleware                                                # middlewares
+│   │   ├── auth.middleware.ts
+│   │   ├── error.middleware.ts
+│   │   ├── logger.middleware.ts
+│   │   └── validation.middleware.ts
+│   ├── server.ts                                                 # server, db, etc initializer
+│   ├── user                                                      # user routes handler
+│   │   ├── user.controller.ts
+│   │   ├── user.dto.ts
+│   │   ├── user.interface.ts
+│   │   └── user.model.ts
+│   └── utils
+│       └── validateEnv.ts
+├── tsconfig.json
+├── tslint.json
+└── yarn.lock
 ```
