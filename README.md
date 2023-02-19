@@ -13,7 +13,7 @@ _np: in this repo, I pushed `.env` (includes db URI, etc) which normally should 
 ├── package.json
 ├── README.md
 ├── src
-│   ├── app.ts                                                   # main
+│   ├── app.ts                                                   # server, db, etc initializer
 │   ├── authentication                                           # auth routes handler
 │   │   ├── authentication.controller.ts
 │   │   ├── authentication.service.ts
@@ -47,7 +47,7 @@ _np: in this repo, I pushed `.env` (includes db URI, etc) which normally should 
 │   │   ├── error.middleware.ts
 │   │   ├── logger.middleware.ts
 │   │   └── validation.middleware.ts
-│   ├── server.ts                                                 # server, db, etc initializer
+│   ├── server.ts                                                 # main
 │   ├── user                                                      # user routes handler
 │   │   ├── user.controller.ts
 │   │   ├── user.dto.ts
