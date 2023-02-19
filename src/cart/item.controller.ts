@@ -7,7 +7,6 @@ import validationMiddleware from "../middleware/validation.middleware";
 import CreateItemDto from "./item.dto";
 import Item from "./item.interface";
 import itemModel from "./item.model";
-import { v4 as uuidv4 } from "uuid";
 
 class ItemController implements Controller {
     public path = "/items";
@@ -35,9 +34,9 @@ class ItemController implements Controller {
 
     private getItemById = async (request: Request, response: Response, next: NextFunction) => {
         const id = request.params.id;
-        const item = await this.item.find({ id: id });
-        if (item.length) {
-            response.send(item[0]);
+        const item = await this.item.findById(id);
+        if (item) {
+            response.send(item);
         } else {
             next(new ItemNotFoundException(id));
         }
@@ -57,10 +56,11 @@ class ItemController implements Controller {
     private createItem = async (request: RequestWithUser, response: Response) => {
         const itemData: CreateItemDto = request.body;
         const createdItem = new this.item({
-            id: uuidv4(),
             ...itemData,
+            author: request.user._id,
         });
         const savedItem = await createdItem.save();
+        await savedItem.populate("author", "-password");
         response.send(savedItem);
     };
 

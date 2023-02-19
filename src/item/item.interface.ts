@@ -1,7 +1,8 @@
 interface Item {
-    authorId: string;
-    content: string;
-    title: string;
+    id: string;
+    name: string;
+    price: number;
+    total: number;
 }
 
 export default Item;

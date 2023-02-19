@@ -1,11 +1,14 @@
-import { IsString } from "class-validator";
+import { IsString, IsNumber } from "class-validator";
 
 class CreateItemDto {
     @IsString()
-    public content: string;
+    public name: string;
 
-    @IsString()
-    public title: string;
+    @IsNumber()
+    public price: number;
+
+    @IsNumber()
+    public total: number;
 }
 
 export default CreateItemDto;

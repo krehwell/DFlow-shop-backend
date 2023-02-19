@@ -14,21 +14,19 @@ class AuthenticationService {
         if (await this.user.findOne({ username: userData.username })) {
             throw new UserWithThatUsernameAlreadyExistsException(userData.username);
         }
+
         const hashedPassword = await bcrypt.hash(userData.password, 10);
-        const user = await this.user.create({
-            ...userData,
-            password: hashedPassword,
-        });
+        const user = await this.user.create({ ...userData, password: hashedPassword });
         const tokenData = this.createToken(user);
         const cookie = this.createCookie(tokenData);
-        return {
-            cookie,
-            user,
-        };
+
+        return { cookie, user };
     }
+
     public createCookie(tokenData: TokenData) {
         return `Authorization=${tokenData.token}; HttpOnly; Max-Age=${tokenData.expiresIn}`;
     }
+
     public createToken(user: User): TokenData {
         const expiresIn = 60 * 60; // an hour
         const secret = process.env.JWT_SECRET;
