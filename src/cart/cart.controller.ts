@@ -24,18 +24,18 @@ class CartController implements Controller {
             .get(this.path, this.getAllCarts)
             .get(`${this.path}/:id`, this.getChartById)
             .patch(`${this.path}/:id`, validationMiddleware(CreateCartDto, true), this.modifyCart)
-            .post(this.path, validationMiddleware(CreateCartDto), this.createCart)
+            .post(this.path, authMiddleware, validationMiddleware(CreateCartDto), this.createCart)
             .delete(`${this.path}/:id`, this.deleteCart);
     }
 
     private getAllCarts = async (request: RequestWithUser, response: Response) => {
-        const carts = await this.cart.find({ user: request.user._id }).populate("user items", "-password");
+        const carts = await this.cart.find({ user: request.user._id }).populate("user items.item", "-password");
         response.send(carts);
     };
 
     private getChartById = async (request: RequestWithUser, response: Response, next: NextFunction) => {
         const id = request.params.id;
-        const item = await this.cart.findOne({ id, user: request.user._id }).populate("user items");
+        const item = await this.cart.findOne({ id, user: request.user._id }).populate("user items.item");
         if (item) {
             response.send(item);
         } else {
@@ -61,7 +61,7 @@ class CartController implements Controller {
 
         try {
             const savedCart = await createdCart.save();
-            await savedCart.populate("user items", "-password");
+            await savedCart.populate("user items.item", "-password");
             response.send(savedCart);
         } catch (err) {
             next(new HttpException(500, err.message));
