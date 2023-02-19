@@ -8,6 +8,7 @@ import CreateCartDto from "./cart.dto";
 import Cart from "./cart.interface";
 import cartModel from "./cart.model";
 import HttpException from "../exceptions/HttpException";
+import itemModel from "../item/item.model";
 
 class CartController implements Controller {
     public path = "/carts";
@@ -25,6 +26,7 @@ class CartController implements Controller {
             .get(`${this.path}/:id`, this.getChartById)
             .patch(`${this.path}/:id`, validationMiddleware(CreateCartDto, true), this.modifyCart)
             .post(this.path, authMiddleware, validationMiddleware(CreateCartDto), this.createCart)
+            .get(`${this.path}/checkout/:id`, authMiddleware, this.checkout)
             .delete(`${this.path}/:id`, this.deleteCart);
     }
 
@@ -68,11 +70,37 @@ class CartController implements Controller {
         }
     };
 
+    private checkout = async (request: RequestWithUser, response: Response, next: NextFunction) => {
+        const id = request.params.id;
+        const carts: Cart = await this.cart.findOne({ id, user: request.user._id }).populate("items.item");
+        const invalidItems = carts.items.filter(cart => cart.item.total < cart.total);
+        if (invalidItems.length > 0) {
+            next(
+                new HttpException(
+                    400,
+                    "Invalid items in cart (number of item more than stock):\n" + JSON.stringify(invalidItems)
+                )
+            );
+        } else {
+            for (const cart of carts.items) {
+                const item = cart.item as any;
+                item.total -= cart.total;
+                await item.save();
+            }
+
+            const updatedCart = await this.cart
+                .findOneAndUpdate({ id, user: request.user._id }, { $set: { items: carts.items } }, { new: true })
+                .populate("items.item");
+
+            response.send(updatedCart);
+        }
+    };
+
     private deleteCart = async (request: RequestWithUser, response: Response, next: NextFunction) => {
         const id = request.params.id;
         const successResponse = await this.cart.findOneAndDelete({ id, user: request.user._id });
         if (successResponse) {
-            response.send(200);
+            response.sendStatus(204);
         } else {
             next(new NotFoundException("Cart", id));
         }

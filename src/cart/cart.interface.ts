@@ -1,5 +1,7 @@
+import Item from "item/item.interface";
+
 interface CartItem {
-    item: string;
+    item: Item;
     total: number;
 }
 
