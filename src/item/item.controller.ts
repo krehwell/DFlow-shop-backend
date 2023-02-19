@@ -24,7 +24,7 @@ class ItemController implements Controller {
             .all(`${this.path}/*`, authMiddleware)
             .patch(`${this.path}/:id`, validationMiddleware(CreateItemDto, true), this.modifyItem)
             .delete(`${this.path}/:id`, this.deleteItem)
-            .post(this.path, authMiddleware, validationMiddleware(CreateItemDto), this.createItem);
+            .post(this.path, validationMiddleware(CreateItemDto), this.createItem);
     }
 
     private getAllItems = async (request: Request, response: Response) => {
