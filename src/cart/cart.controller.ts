@@ -24,7 +24,7 @@ class CartController implements Controller {
             .get(this.path, this.getAllCarts)
             .get(`${this.path}/:id`, this.getChartById)
             .patch(`${this.path}/:id`, validationMiddleware(CreateCartDto, true), this.modifyCart)
-            .post(this.path, validationMiddleware(CreateCartDto), this.createCart)
+            .post(this.path, authMiddleware, validationMiddleware(CreateCartDto), this.createCart)
             .delete(`${this.path}/:id`, this.deleteCart);
     }
 
