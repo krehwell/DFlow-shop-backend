@@ -7,7 +7,6 @@ import validationMiddleware from "../middleware/validation.middleware";
 import CreateItemDto from "./item.dto";
 import Item from "./item.interface";
 import itemModel from "./item.model";
-import { v4 as uuidv4 } from "uuid";
 
 class ItemController implements Controller {
     public path = "/items";
@@ -56,7 +55,8 @@ class ItemController implements Controller {
 
     private createItem = async (request: RequestWithUser, response: Response) => {
         const itemData: CreateItemDto = request.body;
-        const createdItem = new this.item({ id: uuidv4(), ...itemData });
+        const createdItem = new this.item({ ...itemData });
+        createdItem.id = createdItem._id;
         const savedItem = await createdItem.save();
         response.send(savedItem);
     };

@@ -6,6 +6,10 @@ import DataStoredInToken from "../interfaces/dataStoredInToken";
 import RequestWithUser from "../interfaces/requestWithUser.interface";
 import userModel from "../user/user.model";
 
+/**
+ * Check valid JST token by `Authorization` cookie
+ * Inject `user` to `request`
+ */
 async function authMiddleware(request: RequestWithUser, response: Response, next: NextFunction) {
     const cookies = request.cookies;
     if (cookies && cookies.Authorization) {
