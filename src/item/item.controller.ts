@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction, Router } from "express";
-import ItemNotFoundException from "../exceptions/ItemNotFoundException";
+import NotFoundException from "../exceptions/NotFoundException";
 import Controller from "../interfaces/controller.interface";
 import RequestWithUser from "../interfaces/requestWithUser.interface";
 import authMiddleware from "../middleware/auth.middleware";
@@ -38,7 +38,7 @@ class ItemController implements Controller {
         if (item.length) {
             response.send(item[0]);
         } else {
-            next(new ItemNotFoundException(id));
+            next(new NotFoundException("Item", id));
         }
     };
 
@@ -49,7 +49,7 @@ class ItemController implements Controller {
         if (item) {
             response.send(item);
         } else {
-            next(new ItemNotFoundException(id));
+            next(new NotFoundException("Item", id));
         }
     };
 
@@ -67,7 +67,7 @@ class ItemController implements Controller {
         if (successResponse) {
             response.send(204);
         } else {
-            next(new ItemNotFoundException(id));
+            next(new NotFoundException("Item", id));
         }
     };
 }

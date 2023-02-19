@@ -1,4 +1,5 @@
 interface Cart {
+    id: string;
     owner: string;
     items: string[];
 }
