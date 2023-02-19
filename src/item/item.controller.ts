@@ -21,7 +21,6 @@ class ItemController implements Controller {
         this.router.get(this.path, this.getAllItems);
         this.router.get(`${this.path}/:id`, this.getItemById);
         this.router
-            .all(`${this.path}/*`, authMiddleware)
             .patch(`${this.path}/:id`, validationMiddleware(CreateItemDto, true), this.modifyItem)
             .delete(`${this.path}/:id`, this.deleteItem)
             .post(this.path, validationMiddleware(CreateItemDto), this.createItem);
