@@ -46,7 +46,7 @@ class ItemController implements Controller {
     private modifyItem = async (request: Request, response: Response, next: NextFunction) => {
         const id = request.params.id;
         const itemData: Item = request.body;
-        const item = await this.item.findByIdAndUpdate(id, itemData, { new: true });
+        const item = await this.item.findOneAndUpdate({ id }, itemData, { new: true });
         if (item) {
             response.send(item);
         } else {
@@ -56,19 +56,16 @@ class ItemController implements Controller {
 
     private createItem = async (request: RequestWithUser, response: Response) => {
         const itemData: CreateItemDto = request.body;
-        const createdItem = new this.item({
-            id: uuidv4(),
-            ...itemData,
-        });
+        const createdItem = new this.item({ id: uuidv4(), ...itemData });
         const savedItem = await createdItem.save();
         response.send(savedItem);
     };
 
     private deleteItem = async (request: Request, response: Response, next: NextFunction) => {
         const id = request.params.id;
-        const successResponse = await this.item.findByIdAndDelete(id);
+        const successResponse = await this.item.findOneAndDelete({ id });
         if (successResponse) {
-            response.send(200);
+            response.send(204);
         } else {
             next(new ItemNotFoundException(id));
         }
