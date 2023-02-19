@@ -2,7 +2,6 @@ import { Request, Response, NextFunction, Router } from "express";
 import NotFoundException from "../exceptions/NotFoundException";
 import Controller from "../interfaces/controller.interface";
 import RequestWithUser from "../interfaces/requestWithUser.interface";
-import authMiddleware from "../middleware/auth.middleware";
 import validationMiddleware from "../middleware/validation.middleware";
 import CreateItemDto from "./item.dto";
 import Item from "./item.interface";

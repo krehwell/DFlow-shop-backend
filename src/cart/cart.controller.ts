@@ -8,7 +8,6 @@ import CreateCartDto from "./cart.dto";
 import Cart from "./cart.interface";
 import cartModel from "./cart.model";
 import HttpException from "../exceptions/HttpException";
-import itemModel from "../item/item.model";
 
 class CartController implements Controller {
     public path = "/carts";
