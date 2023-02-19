@@ -1,0 +1,296 @@
+{
+	"info": {
+		"_postman_id": "77ecb2a6-2c57-4445-a4d3-226fc323bf28",
+		"name": "DFlow-shop",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16151779"
+	},
+	"item": [
+		{
+			"name": "auth - register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"yakuza\",\n    \"password\": \"password123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "auth - login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"yakuza\",\n    \"password\": \"password123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "item - create",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "Authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2YyMzllMGJkOTMyMDk2NTNkNjMyMTQiLCJpYXQiOjE2NzY4MjQ1NzYsImV4cCI6MTY3NjgyODE3Nn0.zRH3-qcQGe9idsNM8kFXd2cGLEn-XD2ENQrDP4ZIs9w; HttpOnly; Max-Age=3600",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Deadmau5 T-Shirt\",\n    \"price\": 24000,\n    \"total\": 3\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/items",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"items"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "item - get by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/items/63f24d76840ef3414694146c",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"items",
+						"63f24d76840ef3414694146c"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "item - get all",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/items/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"items",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cart - create",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "Authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2YyMzllMGJkOTMyMDk2NTNkNjMyMTQiLCJpYXQiOjE2NzY4Mjk2MDcsImV4cCI6MTcwODM2NTYwN30.LwPxoEWqRSny9Ah90Z9MkNo8Gs-1Qb7T9gzXUJAkhHM; HttpOnly; Max-Age=31536000",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"items\": [\n        {\n            \"item\": \"63f24d62840ef34146941468\",\n            \"total\": 1\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/carts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"carts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cart - modify",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "Authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2YyMzllMGJkOTMyMDk2NTNkNjMyMTQiLCJpYXQiOjE2NzY4Mjk2MDcsImV4cCI6MTcwODM2NTYwN30.LwPxoEWqRSny9Ah90Z9MkNo8Gs-1Qb7T9gzXUJAkhHM; HttpOnly; Max-Age=31536000",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"items\": [\n        {\n            \"item\": \"63f24d62840ef34146941468\",\n            \"total\": 3\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/carts/63f2697c523b967bf768148d",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"carts",
+						"63f2697c523b967bf768148d"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cart - get all",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "Authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2YyMzllMGJkOTMyMDk2NTNkNjMyMTQiLCJpYXQiOjE2NzY4Mjk2MDcsImV4cCI6MTcwODM2NTYwN30.LwPxoEWqRSny9Ah90Z9MkNo8Gs-1Qb7T9gzXUJAkhHM; HttpOnly; Max-Age=31536000",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5000/carts/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"carts",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cart - get by id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "Authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2YyMzllMGJkOTMyMDk2NTNkNjMyMTQiLCJpYXQiOjE2NzY4Mjk2MDcsImV4cCI6MTcwODM2NTYwN30.LwPxoEWqRSny9Ah90Z9MkNo8Gs-1Qb7T9gzXUJAkhHM; HttpOnly; Max-Age=31536000",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5000/carts/63f2697c523b967bf768148d",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"carts",
+						"63f2697c523b967bf768148d"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cart - checkout",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "Authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2YyMzllMGJkOTMyMDk2NTNkNjMyMTQiLCJpYXQiOjE2NzY4Mjk2MDcsImV4cCI6MTcwODM2NTYwN30.LwPxoEWqRSny9Ah90Z9MkNo8Gs-1Qb7T9gzXUJAkhHM; HttpOnly; Max-Age=31536000",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5000/carts/checkout/63f2697c523b967bf768148d",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"carts",
+						"checkout",
+						"63f2697c523b967bf768148d"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
