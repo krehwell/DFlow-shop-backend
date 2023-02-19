@@ -29,7 +29,7 @@ class ItemController implements Controller {
     }
 
     private getAllItems = async (request: Request, response: Response) => {
-        const items = await this.item.find().populate("author", "-password");
+        const items = await this.item.find();
         response.send(items);
     };
 
